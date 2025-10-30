@@ -76,15 +76,23 @@
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    --background: 240 10% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 222 47% 8%;
+    --card: 240 10% 12%;
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 95%;
 
-    --border: 217 33% 20%;
+    --border: 240 10% 18%;
+
+    /* Additional accent colors for dark mode */
+    --accent: 280 100% 70%;
+    --accent-foreground: 0 0% 95%;
+    --secondary: 240 5% 15%;
+    --secondary-foreground: 0 0% 85%;
+    --muted: 240 5% 10%;
+    --muted-foreground: 0 0% 65%;
   }
 
   * {
@@ -96,8 +104,17 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  .dark body {
+    background: linear-gradient(
+      135deg,
+      hsl(240 10% 8%) 0%,
+      hsl(240 15% 12%) 50%,
+      hsl(240 10% 6%) 100%
+    );
   }
 }
 
@@ -140,8 +157,25 @@
 
 @utility cosmic-button {
   @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
+         transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.6)]
          hover:scale-105 active:scale-95;
+}
+
+@utility dark-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    hsl(240 10% 8%) 0%,
+    hsl(240 15% 12%) 50%,
+    hsl(240 10% 6%) 100%
+  );
+}
+
+@utility dark-card-glow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+@utility dark-text-glow {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
 @utility star {

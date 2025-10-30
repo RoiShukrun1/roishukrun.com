@@ -2,29 +2,37 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const skills = [
-  // Frontend
-  { name: "HTML/CSS", level: 95, category: "frontend" },
-  { name: "JavaScript", level: 90, category: "frontend" },
-  { name: "React", level: 90, category: "frontend" },
-  { name: "TypeScript", level: 85, category: "frontend" },
-  { name: "Tailwind CSS", level: 90, category: "frontend" },
-  { name: "Next.js", level: 80, category: "frontend" },
+  // Programming Languages
+  { name: "JavaScript", level: 95, category: "languages" },
+  { name: "Python", level: 90, category: "languages" },
+  { name: "Kotlin", level: 85, category: "languages" },
+  { name: "Java", level: 80, category: "languages" },
+  { name: "TypeScript", level: 85, category: "languages" },
+  { name: "C#", level: 75, category: "languages" },
 
-  // Backend
-  { name: "Node.js", level: 80, category: "backend" },
-  { name: "Express", level: 75, category: "backend" },
-  { name: "MongoDB", level: 70, category: "backend" },
-  { name: "PostgreSQL", level: 65, category: "backend" },
-  { name: "GraphQL", level: 60, category: "backend" },
+  // Frameworks & Libraries
+  { name: "React", level: 90, category: "frameworks" },
+  { name: "Node.js", level: 90, category: "frameworks" },
+  { name: "FastAPI", level: 85, category: "frameworks" },
+  { name: "Express.js", level: 80, category: "frameworks" },
+  { name: "Next.js", level: 80, category: "frameworks" },
+  { name: "Micronaut", level: 75, category: "frameworks" },
 
-  // Tools
-  { name: "Git/GitHub", level: 90, category: "tools" },
-  { name: "Docker", level: 70, category: "tools" },
-  { name: "Figma", level: 85, category: "tools" },
-  { name: "VS Code", level: 95, category: "tools" },
+  // Databases & Cloud
+  { name: "PostgreSQL", level: 85, category: "databases" },
+  { name: "MongoDB", level: 80, category: "databases" },
+  { name: "Redis", level: 75, category: "databases" },
+  { name: "Docker", level: 80, category: "databases" },
+  { name: "GraphQL", level: 85, category: "databases" },
+
+  // Testing & Tools
+  { name: "Playwright", level: 90, category: "tools" },
+  { name: "Git", level: 95, category: "tools" },
+  { name: "Android Studio", level: 80, category: "tools" },
+  { name: "Figma", level: 75, category: "tools" },
 ];
 
-const categories = ["all", "frontend", "backend", "tools"];
+const categories = ["all", "languages", "frameworks", "databases", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");

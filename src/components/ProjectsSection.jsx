@@ -3,30 +3,31 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "SaaS Landing Page",
-    description: "A beautiful landing page app using React and Tailwind.",
+    title: "Flappy Bird 2.0 – AI & Multiplayer Edition",
+    description:
+      "Enhanced the classic game with AI opponents, multiplayer, authentication, and multiple gameplay modes. Built with Python, FastAPI, and NEAT for adaptive AI behavior.",
     image: "/projects/project1.png",
-    tags: ["React", "TailwindCSS", "Supabase"],
+    tags: ["Python", "FastAPI", "NEAT", "AI", "Multiplayer"],
     demoUrl: "#",
     githubUrl: "#",
   },
   {
     id: 2,
-    title: "Orbit Analytics Dashboard",
+    title: "TechTube - YouTube Inspired Video Platform",
     description:
-      "Interactive analytics dashboard with data visualization and filtering capabilities.",
+      "Full-stack web and mobile video-sharing platform with upload, user management, search, and authentication. Built with Node.js, MongoDB, React, and Kotlin.",
     image: "/projects/project2.png",
-    tags: ["TypeScript", "D3.js", "Next.js"],
+    tags: ["Node.js", "React", "Kotlin", "MongoDB", "Full-Stack"],
     demoUrl: "#",
     githubUrl: "#",
   },
   {
     id: 3,
-    title: "E-commerce Platform",
+    title: "K Health Clinical AI Platform",
     description:
-      "Full-featured e-commerce platform with user authentication and payment processing.",
+      "Enhanced flagship product through major UI/UX, performance, and architectural upgrades. Transitioned core services from REST to GraphQL and developed automated testing systems.",
     image: "/projects/project3.png",
-    tags: ["React", "Node.js", "Stripe"],
+    tags: ["GraphQL", "React", "Testing", "CI/CD", "AI"],
     demoUrl: "#",
     githubUrl: "#",
   },
@@ -100,7 +101,7 @@ export const ProjectsSection = () => {
           <a
             className="cosmic-button w-fit flex items-center mx-auto gap-2"
             target="_blank"
-            href="https://github.com/machadop1407"
+            href="https://github.com/roishukrun"
           >
             Check My Github <ArrowRight size={16} />
           </a>
