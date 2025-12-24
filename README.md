@@ -42,40 +42,40 @@ In this tutorial, you'll learn how to build a modern portfolio website using **R
 
 ## ⚙️ Tech Stack
 
-* **React** – Component-based UI development
-* **Vite** – Lightning-fast build tool
-* **TailwindCSS** – Utility-first CSS for styling
-* **Lucide Icons** – Clean and beautiful icon pack
-* **Radix UI** – Accessible component primitives
-* **TypeScript (optional)** – Type safety and tooling
-* **GitHub & Vercel** – Deployment
+- **React** – Component-based UI development
+- **Vite** – Lightning-fast build tool
+- **TailwindCSS** – Utility-first CSS for styling
+- **Lucide Icons** – Clean and beautiful icon pack
+- **Radix UI** – Accessible component primitives
+- **TypeScript (optional)** – Type safety and tooling
+- **GitHub & Vercel** – Deployment
 
 ---
 
 ## ⚡️ Features
 
-* 🌑 **Light/Dark Mode Toggle**
+- 🌑 **Light/Dark Mode Toggle**
   Save theme preference in local storage with beautiful transitions
 
-* 💫 **Animated Backgrounds**
+- 💫 **Animated Backgrounds**
   Stars, meteors, scroll effects, and glowing UI elements
 
-* 📱 **Responsive Navigation**
+- 📱 **Responsive Navigation**
   Desktop and mobile menus with glassmorphism
 
-* 👨‍💻 **Hero & About Sections**
+- 👨‍💻 **Hero & About Sections**
   Showcase who you are with smooth intro animations and buttons
 
-* 📊 **Skills Grid**
+- 📊 **Skills Grid**
   Filterable progress bars and categories with animated width
 
-* 🖼️ **Projects Showcase**
+- 🖼️ **Projects Showcase**
   Display screenshots, tech stacks, and GitHub/demo links
 
-* 📩 **Contact Section**
+- 📩 **Contact Section**
   Social icons + responsive contact form with toast notifications
 
-* 🚀 **One-Click Deployment**
+- 🚀 **One-Click Deployment**
   Easily host your site with Vercel and GitHub
 
 ---
@@ -84,8 +84,8 @@ In this tutorial, you'll learn how to build a modern portfolio website using **R
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/)
-* [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/)
+- [Git](https://git-scm.com/)
 
 ### Clone and Run
 
@@ -97,6 +97,59 @@ npm run dev
 ```
 
 Your app will be available at: [http://localhost:5173](http://localhost:5173)
+
+### Email Setup (Contact Form)
+
+The contact form uses EmailJS to send emails directly from the browser. To enable email functionality:
+
+1. **Sign up for EmailJS** (free account available)
+
+   - Go to [https://www.emailjs.com/](https://www.emailjs.com/)
+   - Create a free account
+
+2. **Create an Email Service**
+
+   - In the EmailJS dashboard, go to "Email Services"
+   - Click "Add New Service"
+   - Choose your email provider (Gmail recommended)
+   - Follow the setup instructions to connect your email account
+   - Note your **Service ID**
+
+3. **Create an Email Template**
+
+   - Go to "Email Templates" in the dashboard
+   - Click "Create New Template"
+   - Use the following template variables:
+     - `{{from_name}}` - Sender's name
+     - `{{from_email}}` - Sender's email
+     - `{{message}}` - Message content
+     - `{{to_email}}` - Your email
+   - Set the "To Email" field to: `yourmail@gmail.com`
+   - Set the "Subject" to something like: "New Contact Form Message from {{from_name}}"
+   - Note your **Template ID**
+
+4. **Get your Public Key**
+
+   - Go to "Account" → "General"
+   - Copy your **Public Key**
+
+5. **Create Environment File**
+
+   - Create a `.env` file in the root directory
+   - Add the following variables:
+     ```
+     VITE_EMAILJS_SERVICE_ID=your_service_id
+     VITE_EMAILJS_TEMPLATE_ID=your_template_id
+     VITE_EMAILJS_PUBLIC_KEY=your_public_key
+     ```
+   - Replace the placeholder values with your actual IDs and key
+
+6. **Restart your dev server**
+   ```bash
+   npm run dev
+   ```
+
+The contact form will now send emails to `yourmail@gmail.com` when submitted!
 
 ---
 
@@ -121,12 +174,12 @@ Your live website will be hosted on a custom subdomain (e.g. `https://your-name.
 
 ## 🔗 Useful Links
 
-* [React Documentation](https://reactjs.org/)
-* [Tailwind CSS Docs](https://tailwindcss.com/)
-* [Lucide Icons](https://lucide.dev/)
-* [Radix UI](https://www.radix-ui.com/)
-* [Vite](https://vitejs.dev/)
-* [Vercel](https://vercel.com/)
+- [React Documentation](https://reactjs.org/)
+- [Tailwind CSS Docs](https://tailwindcss.com/)
+- [Lucide Icons](https://lucide.dev/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Vite](https://vitejs.dev/)
+- [Vercel](https://vercel.com/)
 
 ---
 

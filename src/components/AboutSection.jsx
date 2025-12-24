@@ -1,4 +1,4 @@
-import { Briefcase, Code, User } from "lucide-react";
+import { Brain, Layers, Workflow } from "lucide-react";
 
 export const AboutSection = () => {
   return (
@@ -11,24 +11,20 @@ export const AboutSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h3 className="text-2xl font-semibold">
-              Software Engineer & Full-Stack Developer
-            </h3>
+            <h3 className="text-2xl font-semibold">Full-Stack Developer</h3>
 
             <p className="text-muted-foreground">
-              Currently working as a Software Engineer at K Health, where I
-              enhance flagship products through major UI/UX, performance, and
-              architectural upgrades. I specialize in transitioning services
-              from REST to GraphQL and developing automated testing systems for
-              AI platforms.
+              Currently working as a Software Engineer at K Health, contributing
+              to flagship products through UI/UX, performance, and architectural
+              improvements, and building scalable features used in production.
             </p>
 
             <p className="text-muted-foreground">
-              With expertise in JavaScript, Python, Kotlin, and modern
-              frameworks like React and Node.js, I build scalable applications
-              that integrate AI components and manage real-time client-server
-              interactions. I'm passionate about creating innovative solutions
-              that enhance user experiences.
+              Alongside product development, designs and develops end-to-end
+              automation frameworks for complex workflows, with a strong focus
+              on reliability, maintainability, and CI/CD integration. Experience
+              spans JavaScript, Python, and Kotlin, using modern frameworks such
+              as React and Node.js across the full stack.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
@@ -50,15 +46,15 @@ export const AboutSection = () => {
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <Code className="h-6 w-6 text-primary" />
+                  <Layers className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">
-                    Full-Stack Development
+                    Production Engineering
                   </h4>
                   <p className="text-muted-foreground">
-                    Building scalable applications with JavaScript, Python,
-                    Kotlin, React, Node.js, and modern frameworks.
+                    Building and maintaining production-grade services with a
+                    focus on scalability, reliability, and clean architecture.
                   </p>
                 </div>
               </div>
@@ -66,13 +62,16 @@ export const AboutSection = () => {
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <User className="h-6 w-6 text-primary" />
+                  <Workflow className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg">AI Integration</h4>
+                  <h4 className="font-semibold text-lg">
+                    Test Automation & QE
+                  </h4>
                   <p className="text-muted-foreground">
-                    Developing automated testing systems for AI platforms and
-                    integrating ML components into applications.
+                    Designing end-to-end automation frameworks for complex
+                    workflows, improving system confidence, release safety, and
+                    CI/CD efficiency.
                   </p>
                 </div>
               </div>
@@ -80,16 +79,15 @@ export const AboutSection = () => {
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <Briefcase className="h-6 w-6 text-primary" />
+                  <Brain className="h-6 w-6 text-primary" />
                 </div>
 
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg">
-                    Architecture & Performance
-                  </h4>
+                  <h4 className="font-semibold text-lg">AI & ML Systems</h4>
                   <p className="text-muted-foreground">
-                    Transitioning services from REST to GraphQL, enhancing
-                    performance, and implementing CI/CD pipelines.
+                    Strong interest in machine learning and AI systems, with
+                    hands-on experience integrating intelligent components and
+                    agents into real products and engineering workflows.
                   </p>
                 </div>
               </div>
