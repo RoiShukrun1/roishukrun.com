@@ -17,80 +17,105 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.screenY > 10);
+      setIsScrolled(window.scrollY > 10);
     };
+
+    // Check initial scroll position
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isMenuOpen]);
   return (
-    <nav
-      className={cn(
-        "fixed w-full z-40 transition-all duration-300",
-        isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
-      )}
-    >
-      <div className="container flex items-center justify-between">
-        <a
-          className="text-xl font-bold text-primary flex items-center"
-          href="#hero"
-        >
-          <span className="relative z-10">
-            <span className="text-glow text-foreground"> Roi Shukrun </span>{" "}
-            Portfolio
-          </span>
-        </a>
-
-        {/* desktop nav */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navItems.map((item, key) => (
-            <a
-              key={key}
-              href={item.href}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
-            >
-              {item.name}
-            </a>
-          ))}
-          <ThemeToggle />
-        </div>
-
-        {/* mobile nav */}
-        <div className="md:hidden flex items-center space-x-2">
-          <ThemeToggle />
-          <button
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="p-2 text-foreground z-50"
-            aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+    <>
+      <nav
+        className={cn(
+          "fixed w-full z-50 transition-all duration-300",
+          isScrolled
+            ? "py-3 bg-background/80 backdrop-blur-md shadow-xs"
+            : "py-5 md:bg-transparent bg-background/80 backdrop-blur-md"
+        )}
+      >
+        <div className="container flex items-center justify-between">
+          <a
+            className="text-xl font-bold text-primary flex items-center"
+            href="#hero"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}{" "}
-          </button>
-        </div>
+            <span className="relative z-10">
+              <span className="text-glow text-foreground"> Roi Shukrun </span>{" "}
+              Portfolio
+            </span>
+          </a>
 
-        <div
-          className={cn(
-            "fixed inset-0 bg-background/95 backdroup-blur-md z-40 flex flex-col items-center justify-center",
-            "transition-all duration-300 md:hidden",
-            isMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          )}
-        >
-          <div className="flex flex-col space-y-8 text-xl items-center">
+          {/* desktop nav */}
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, key) => (
               <a
                 key={key}
                 href={item.href}
                 className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </a>
             ))}
             <ThemeToggle />
           </div>
+
+          {/* mobile nav */}
+          <div className="md:hidden flex items-center space-x-2 relative z-[70]">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              className="p-2 text-foreground"
+              aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}{" "}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay - Outside nav to avoid container constraints */}
+      <div
+        className={cn(
+          "fixed top-0 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-md z-[60] flex flex-col items-center justify-center",
+          "transition-all duration-300 md:hidden",
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        )}
+      >
+        <button
+          type="button"
+          aria-label="Close Menu"
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-5 right-5 p-2 text-foreground"
+        >
+          <X size={28} />
+        </button>
+        <div className="flex flex-col space-y-8 text-xl items-center">
+          {navItems.map((item, key) => (
+            <a
+              key={key}
+              href={item.href}
+              className="text-foreground/80 hover:text-primary transition-colors duration-300"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.name}
+            </a>
+          ))}
+          <ThemeToggle />
         </div>
       </div>
-    </nav>
+    </>
   );
 };

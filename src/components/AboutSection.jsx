@@ -2,7 +2,7 @@ import { Brain, Layers, Workflow } from "lucide-react";
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-24 px-4 relative">
+    <section id="about" className="pt-24 pb-8 px-4 relative">
       {" "}
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
@@ -34,7 +34,8 @@ export const AboutSection = () => {
               </a>
 
               <a
-                href=""
+                href="/Roi_Shukrun_Resume_2025.pdf"
+                download="Roi_Shukrun_Resume_2025.pdf"
                 className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
               >
                 Download CV
