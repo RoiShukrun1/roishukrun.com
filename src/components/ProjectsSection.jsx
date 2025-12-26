@@ -49,7 +49,7 @@ export const ProjectsSection = () => {
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           Here are some of my recent projects. Each project was carefully
-          crafted with attention to detail, performance and user experience.
+          crafted with attention to details, performance and user experience.
         </p>
 
         <div
