@@ -47,9 +47,14 @@ export const Navbar = () => {
       >
         <div className="container flex items-center justify-between">
           <a
-            className="text-xl font-bold text-primary flex items-center"
+            className="text-xl font-bold text-primary flex items-center gap-2"
             href="#hero"
           >
+            <img
+              src="/logo3.png"
+              alt="Roi Shukrun logo"
+              className="h-8 w-8 object-contain"
+            />
             <span className="relative z-10">
               <span className="text-glow text-foreground"> Roi Shukrun </span>{" "}
               Portfolio
