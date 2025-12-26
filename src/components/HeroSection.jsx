@@ -36,7 +36,7 @@ export const HeroSection = () => {
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
             Software Engineer and Computer Science graduate focused on
             full-stack development. Passionate about building impactful
-            products, solving complex problems, and exploring new technologies.
+            products, solving complex problems and exploring new technologies.
           </p>
 
           <div className="pt-4 pb-20 sm:pb-4 opacity-0 animate-fade-in-delay-4">

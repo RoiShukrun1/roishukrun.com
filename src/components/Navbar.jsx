@@ -7,8 +7,8 @@ import { ThemeToggle } from "./ThemeToggle";
 const navItems = [
   { name: "Home", to: "/home" },
   { name: "About", to: "/about" },
-  { name: "Skills", to: "/skills" },
   { name: "Projects", to: "/projects" },
+  { name: "Skills", to: "/skills" },
   { name: "Contact", to: "/contact" },
 ];
 
@@ -46,19 +46,19 @@ export const Navbar = () => {
             : "py-5 md:bg-transparent bg-background/80 backdrop-blur-md"
         )}
       >
-        <div className="container flex items-center justify-between">
+        <div className="container flex items-center justify-between gap-3 px-3 sm:px-8">
           <Link
-            className="text-xl font-bold text-primary flex items-center gap-2"
+            className="text-lg sm:text-xl font-bold text-primary flex items-center gap-2 min-w-0"
             to="/home"
           >
             <img
               src="/logo3.png"
               alt="Roi Shukrun logo"
-              className="h-8 w-8 object-contain"
+              className="h-7 w-7 sm:h-8 sm:w-8 object-contain shrink-0"
             />
-            <span className="relative z-10">
+            <span className="relative z-10 truncate">
               <span className="text-glow text-foreground"> Roi Shukrun </span>{" "}
-              Portfolio
+              <span className="hidden xs:inline">Portfolio</span>
             </span>
           </Link>
 
@@ -77,7 +77,7 @@ export const Navbar = () => {
           </div>
 
           {/* mobile nav */}
-          <div className="md:hidden flex items-center space-x-2 relative z-[70]">
+          <div className="md:hidden flex items-center gap-2 shrink-0 relative z-[70]">
             <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen((prev) => !prev)}

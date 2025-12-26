@@ -195,44 +195,44 @@ export const ContactSection = () => {
               Contact Information
             </h3>
 
-            <div className="space-y-6 justify-center">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="h-6 w-6 text-primary" />{" "}
+            <div className="space-y-6 justify-center text-left">
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 shrink-0 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Mail className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h4 className="font-medium"> Email</h4>
+                <div className="min-w-0 flex flex-col gap-1">
+                  <h4 className="font-medium leading-tight">Email</h4>
                   <a
                     href="mailto:roishukrun8@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-colors leading-tight"
                   >
                     roishukrun8@gmail.com
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Phone className="h-6 w-6 text-primary" />{" "}
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 shrink-0 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Phone className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h4 className="font-medium"> Phone</h4>
+                <div className="min-w-0 flex flex-col gap-1">
+                  <h4 className="font-medium leading-tight">Phone</h4>
                   <a
                     href="tel:+972543351584"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-colors leading-tight"
                   >
                     +972-54-335-1584
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="h-6 w-6 text-primary" />{" "}
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 shrink-0 rounded-full bg-primary/10 flex items-center justify-center">
+                  <MapPin className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h4 className="font-medium"> Location</h4>
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                <div className="min-w-0 flex flex-col gap-1">
+                  <h4 className="font-medium leading-tight">Location</h4>
+                  <span className="text-muted-foreground leading-tight">
                     Tel Aviv, Israel
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>

@@ -17,15 +17,15 @@ export const AboutSection = () => {
             <p className="text-muted-foreground">
               Currently working as a Software Engineer at K Health, contributing
               to flagship products through UI/UX, performance, and architectural
-              improvements, and building scalable features used in production.
+              improvements.
             </p>
 
             <p className="text-muted-foreground">
               Alongside product development, designs and develops end-to-end
               automation frameworks for complex workflows, with a strong focus
               on reliability, maintainability, and CI/CD integration. Experience
-              spans JavaScript, Python, and Kotlin, using modern frameworks such
-              as React and Node.js across the full stack.
+              spans JavaScript, Python, Kotlin and more, using modern frameworks
+              such as React and Node.js across the full stack.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
@@ -56,7 +56,7 @@ export const AboutSection = () => {
                   </h4>
                   <p className="text-muted-foreground">
                     Building and maintaining production-grade services with a
-                    focus on scalability, reliability, and clean architecture.
+                    focus on scalability, reliability and clean architecture.
                   </p>
                 </div>
               </div>
@@ -72,7 +72,7 @@ export const AboutSection = () => {
                   </h4>
                   <p className="text-muted-foreground">
                     Designing end-to-end automation frameworks for complex
-                    workflows, improving system confidence, release safety, and
+                    workflows, improving system confidence, release safety and
                     CI/CD efficiency.
                   </p>
                 </div>
