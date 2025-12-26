@@ -1,4 +1,5 @@
 import { Brain, Layers, Workflow } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const AboutSection = () => {
   return (
@@ -28,10 +29,10 @@ export const AboutSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-              <a href="#contact" className="cosmic-button">
+              <Link to="/contact" className="cosmic-button">
                 {" "}
                 Get In Touch
-              </a>
+              </Link>
 
               <a
                 href="/Roi_Shukrun_Resume_2025.pdf"

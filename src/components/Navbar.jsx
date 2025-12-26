@@ -1,14 +1,15 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", to: "/home" },
+  { name: "About", to: "/about" },
+  { name: "Skills", to: "/skills" },
+  { name: "Projects", to: "/projects" },
+  { name: "Contact", to: "/contact" },
 ];
 
 export const Navbar = () => {
@@ -46,9 +47,9 @@ export const Navbar = () => {
         )}
       >
         <div className="container flex items-center justify-between">
-          <a
+          <Link
             className="text-xl font-bold text-primary flex items-center gap-2"
-            href="#hero"
+            to="/home"
           >
             <img
               src="/logo3.png"
@@ -59,18 +60,18 @@ export const Navbar = () => {
               <span className="text-glow text-foreground"> Roi Shukrun </span>{" "}
               Portfolio
             </span>
-          </a>
+          </Link>
 
           {/* desktop nav */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, key) => (
-              <a
+              <Link
                 key={key}
-                href={item.href}
+                to={item.to}
                 className="text-foreground/80 hover:text-primary transition-colors duration-300"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
             <ThemeToggle />
           </div>
@@ -109,14 +110,14 @@ export const Navbar = () => {
         </button>
         <div className="flex flex-col space-y-8 text-xl items-center">
           {navItems.map((item, key) => (
-            <a
+            <Link
               key={key}
-              href={item.href}
+              to={item.to}
               className="text-foreground/80 hover:text-primary transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
-            </a>
+            </Link>
           ))}
           <ThemeToggle />
         </div>
