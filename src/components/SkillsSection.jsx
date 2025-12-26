@@ -68,9 +68,10 @@ export const SkillsSection = () => {
     (skill) => skill.category === activeCategory
   );
 
-  // On mobile: 1 column = 4 items for 4 rows
-  // Only apply limit on mobile, desktop/tablet always show all
-  const hasMoreItems = filteredSkills.length > 4;
+  // Mobile-only limit (no hover devices): show first 5 cards, allow expand/collapse
+  // Desktop/tablet always show all
+  const MOBILE_VISIBLE_ITEMS = 5;
+  const hasMoreItems = filteredSkills.length > MOBILE_VISIBLE_ITEMS;
 
   // Reset showAll when category changes
   const handleCategoryChange = (category) => {
@@ -102,37 +103,32 @@ export const SkillsSection = () => {
           ))}
         </div>
 
-        <div
-          className={cn(
-            "transition-all duration-500 ease-in-out",
-            !showAll &&
-              hasMoreItems &&
-              "max-h-[700px] overflow-hidden sm:max-h-none"
-          )}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredSkills.map((skill, key) => (
-              <div
-                key={key}
-                className="group bg-card p-6 rounded-lg shadow-xs card-hover text-center relative overflow-hidden border border-border/60"
-              >
-                {/* Purple accent line (hover) */}
-                <span
-                  className={cn(
-                    "pointer-events-none absolute inset-x-6 bottom-3 h-[2px] bg-gradient-to-r from-primary/0 via-primary to-primary/0 origin-center transition-all duration-500",
-                    // Mobile: always visible + subtle pulse (no hover)
-                    "opacity-70 scale-x-100 animate-[pulse-subtle_3s_ease-in-out_infinite]",
-                    // >= sm: hover-only
-                    "sm:opacity-0 sm:scale-x-0 sm:animate-none sm:group-hover:opacity-100 sm:group-hover:scale-x-100"
-                  )}
-                />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredSkills.map((skill, key) => (
+            <div
+              key={key}
+              className={cn(
+                "group bg-card p-6 rounded-lg shadow-xs card-hover text-center relative overflow-hidden border border-border/60",
+                // Mobile: hide items after the first 5 unless expanded; keep visible on sm+
+                key >= MOBILE_VISIBLE_ITEMS && !showAll && "hidden sm:block"
+              )}
+            >
+              {/* Purple accent line (hover) */}
+              <span
+                className={cn(
+                  "pointer-events-none absolute inset-x-6 bottom-3 h-[2px] bg-gradient-to-r from-primary/0 via-primary to-primary/0 origin-center transition-all duration-500",
+                  // Mobile: always visible + subtle pulse (no hover)
+                  "opacity-70 scale-x-100 animate-[pulse-subtle_3s_ease-in-out_infinite]",
+                  // >= sm: hover-only
+                  "sm:opacity-0 sm:scale-x-0 sm:animate-none sm:group-hover:opacity-100 sm:group-hover:scale-x-100"
+                )}
+              />
 
-                <div className="text-center">
-                  <h3 className="font-semibold text-lg">{skill.name}</h3>
-                </div>
+              <div className="text-center">
+                <h3 className="font-semibold text-lg">{skill.name}</h3>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {hasMoreItems && (
