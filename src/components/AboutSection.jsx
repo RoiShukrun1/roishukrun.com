@@ -16,7 +16,7 @@ export const AboutSection = () => {
 
             <p className="text-muted-foreground">
               Currently working as a Software Engineer at K Health, contributing
-              to flagship products through UI/UX, performance, and architectural
+              to flagship products through UI/UX, performance and architectural
               improvements.
             </p>
 

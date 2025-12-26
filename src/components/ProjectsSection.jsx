@@ -7,7 +7,7 @@ const projects = [
     id: 1,
     title: "TechTube - YouTube Inspired Video Platform",
     description:
-      "Full-stack web and mobile video-sharing platform with upload, user management, search, and authentication. Built with Node.js, MongoDB, React, and Java.",
+      "Full-stack web and mobile video-sharing platform with upload, user management, search, and authentication. Built with Node.js, MongoDB, React and Java.",
     image: "/projects/techtube.png",
     tags: ["Node.js", "React", "Java", "C++", "MongoDB", "Android Studio"],
     githubUrl: "https://github.com/RoiShukrun1/Tech-Tube",
@@ -16,7 +16,7 @@ const projects = [
     id: 2,
     title: "Flappy Bird 2.0 – AI & Multiplayer Edition",
     description:
-      "Enhanced the classic game with AI opponents, multiplayer, authentication, and multiple gameplay modes. Built with Python, FastAPI, and NEAT for adaptive AI behavior.",
+      "Enhanced the classic game with AI opponents, multiplayer, authentication, and multiple gameplay modes. Built with Python, FastAPI and NEAT for adaptive AI behavior.",
     image: "/projects/flappybird.png",
     tags: ["Python", "FastAPI", "NEAT", "AI", "Multiplayer"],
     githubUrl: "https://github.com/RoiShukrun1/FlappyBird-2.0",
@@ -49,7 +49,7 @@ export const ProjectsSection = () => {
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           Here are some of my recent projects. Each project was carefully
-          crafted with attention to detail, performance, and user experience.
+          crafted with attention to detail, performance and user experience.
         </p>
 
         <div

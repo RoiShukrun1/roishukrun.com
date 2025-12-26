@@ -58,7 +58,7 @@ export const Navbar = () => {
             />
             <span className="relative z-10 truncate">
               <span className="text-glow text-foreground"> Roi Shukrun </span>{" "}
-              <span className="hidden xs:inline">Portfolio</span>
+              Portfolio
             </span>
           </Link>
 
