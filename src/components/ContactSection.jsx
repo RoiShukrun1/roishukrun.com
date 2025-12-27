@@ -1,4 +1,13 @@
-import { Linkedin, Mail, MapPin, Phone, Send, Github } from "lucide-react";
+import {
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+  Github,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect, useRef } from "react";
@@ -82,7 +91,18 @@ export const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    message: false,
+  });
   const [rateLimitInfo, setRateLimitInfo] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -123,16 +143,91 @@ export const ContactSection = () => {
     }
   }, [formData.email]);
 
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "name":
+        if (!value.trim()) {
+          error = "Name is required";
+        } else if (value.trim().length < 2) {
+          error = "Name must be at least 2 characters";
+        }
+        break;
+      case "email":
+        if (!value.trim()) {
+          error = "Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = "Please enter a valid email address";
+        }
+        break;
+      case "message":
+        if (!value.trim()) {
+          error = "Message is required";
+        } else if (value.trim().length < 10) {
+          error = "Message must be at least 10 characters";
+        }
+        break;
+      default:
+        break;
+    }
+    return error;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // Validate on change if field has been touched
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+    const error = validateField(name, value);
+    setErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSuccess(false);
+
+    // Mark all fields as touched
+    const newTouched = { name: true, email: true, message: true };
+    setTouched(newTouched);
+
+    // Validate all fields
+    const newErrors = {
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      message: validateField("message", formData.message),
+    };
+    setErrors(newErrors);
+
+    // Check if there are any errors
+    if (Object.values(newErrors).some((error) => error !== "")) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix the errors in the form before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     // Check rate limit before proceeding
     const limitCheck = checkRateLimit(formData.email);
@@ -180,8 +275,9 @@ export const ContactSection = () => {
       // Record the message after successful send
       recordMessage(formData.email);
 
+      setIsSuccess(true);
       toast({
-        title: "Message sent!",
+        title: "Message sent successfully!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
 
@@ -195,6 +291,19 @@ export const ContactSection = () => {
         email: "",
         message: "",
       });
+      setErrors({
+        name: "",
+        email: "",
+        message: "",
+      });
+      setTouched({
+        name: false,
+        email: false,
+        message: false,
+      });
+
+      // Reset success state after 3 seconds
+      setTimeout(() => setIsSuccess(false), 3000);
     } catch (error) {
       console.error("EmailJS Error:", error);
       toast({
@@ -345,24 +454,55 @@ export const ContactSection = () => {
             <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
 
             <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* Success indicator */}
+              {isSuccess && (
+                <div className="flex items-center gap-3 p-4 rounded-lg bg-primary/10 border border-primary/20 text-primary animate-fade-in">
+                  <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
+                  <p className="text-sm font-medium">
+                    Message sent successfully! I'll get back to you soon.
+                  </p>
+                </div>
+              )}
+
               <div>
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Name
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                  placeholder="John Doe..."
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    className={cn(
+                      "w-full px-4 py-3 rounded-lg border bg-background transition-all duration-200 focus:outline-none focus:ring-2",
+                      errors.name
+                        ? "border-red-500/50 focus:ring-red-500/50 focus:border-red-500"
+                        : touched.name && !errors.name
+                        ? "border-green-500/50 focus:ring-green-500/50 focus:border-green-500"
+                        : "border-input focus:ring-primary focus:border-primary"
+                    )}
+                    placeholder="John Doe..."
+                  />
+                  {touched.name && !errors.name && formData.name && (
+                    <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-500" />
+                  )}
+                  {errors.name && (
+                    <AlertCircle className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500" />
+                  )}
+                </div>
+                {errors.name && (
+                  <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1.5 animate-fade-in">
+                    <AlertCircle className="h-4 w-4" />
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -370,19 +510,40 @@ export const ContactSection = () => {
                   htmlFor="email"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Email
                 </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                  placeholder="john@gmail.com"
-                />
+                <div className="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    className={cn(
+                      "w-full px-4 py-3 rounded-lg border bg-background transition-all duration-200 focus:outline-none focus:ring-2",
+                      errors.email
+                        ? "border-red-500/50 focus:ring-red-500/50 focus:border-red-500"
+                        : touched.email && !errors.email
+                        ? "border-green-500/50 focus:ring-green-500/50 focus:border-green-500"
+                        : "border-input focus:ring-primary focus:border-primary"
+                    )}
+                    placeholder="john@gmail.com"
+                  />
+                  {touched.email && !errors.email && formData.email && (
+                    <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-500" />
+                  )}
+                  {errors.email && (
+                    <AlertCircle className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500" />
+                  )}
+                </div>
+                {errors.email && (
+                  <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1.5 animate-fade-in">
+                    <AlertCircle className="h-4 w-4" />
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -390,19 +551,40 @@ export const ContactSection = () => {
                   htmlFor="message"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Message
                 </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary resize-none"
-                  placeholder="Hello, I'd like to talk about..."
-                />
+                <div className="relative">
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    rows={5}
+                    className={cn(
+                      "w-full px-4 py-3 rounded-lg border bg-background transition-all duration-200 focus:outline-none focus:ring-2 resize-none",
+                      errors.message
+                        ? "border-red-500/50 focus:ring-red-500/50 focus:border-red-500"
+                        : touched.message && !errors.message
+                        ? "border-green-500/50 focus:ring-green-500/50 focus:border-green-500"
+                        : "border-input focus:ring-primary focus:border-primary"
+                    )}
+                    placeholder="Hello, I'd like to talk about..."
+                  />
+                  {touched.message && !errors.message && formData.message && (
+                    <CheckCircle2 className="absolute right-3 top-3 h-5 w-5 text-green-500" />
+                  )}
+                  {errors.message && (
+                    <AlertCircle className="absolute right-3 top-3 h-5 w-5 text-red-500" />
+                  )}
+                </div>
+                {errors.message && (
+                  <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1.5 animate-fade-in">
+                    <AlertCircle className="h-4 w-4" />
+                    {errors.message}
+                  </p>
+                )}
               </div>
 
               <button
@@ -411,14 +593,29 @@ export const ContactSection = () => {
                   isSubmitting || (rateLimitInfo && !rateLimitInfo.allowed)
                 }
                 className={cn(
-                  "cosmic-button w-full flex items-center justify-center gap-2",
+                  "cosmic-button w-full flex items-center justify-center gap-2 transition-all duration-300",
                   rateLimitInfo &&
                     !rateLimitInfo.allowed &&
-                    "opacity-50 cursor-not-allowed"
+                    "opacity-50 cursor-not-allowed",
+                  isSuccess && "bg-green-500 hover:bg-green-600"
                 )}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
-                <Send size={16} />
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin">⏳</span>
+                    Sending...
+                  </>
+                ) : isSuccess ? (
+                  <>
+                    <CheckCircle2 size={16} />
+                    Message Sent!
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send size={16} />
+                  </>
+                )}
               </button>
             </form>
           </div>
