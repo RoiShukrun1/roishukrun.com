@@ -52,8 +52,8 @@ export const ProjectsSection = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Check if section is at least 30% visible
-          if (entry.intersectionRatio >= 0.3) {
+          // Check if section is at least 20% visible
+          if (entry.intersectionRatio >= 0.2) {
             setIsVisible(true);
           } else {
             setIsVisible(false);
@@ -61,7 +61,7 @@ export const ProjectsSection = () => {
         });
       },
       {
-        threshold: 0.3, // Trigger when 30% visible
+        threshold: 0.2, // Trigger when 30% visible
         rootMargin: "0px",
       }
     );
