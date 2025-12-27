@@ -1,5 +1,11 @@
-import { ArrowRight, Github, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import {
+  ArrowRight,
+  Github,
+  ChevronDown,
+  ChevronUp,
+  Sparkles,
+} from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 const projects = [
@@ -34,17 +40,68 @@ const projects = [
 
 export const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSpinning, setIsSpinning] = useState(false);
+  const sectionRef = useRef(null);
 
   // On mobile: 1 column = 3 projects for 3 rows
   // Only apply limit on mobile, desktop/tablet always show all
   const hasMoreProjects = projects.length > 3;
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Check if section is at least 30% visible
+          if (entry.intersectionRatio >= 0.3) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% visible
+        rootMargin: "0px",
+      }
+    );
+
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
+    }
+
+    return () => {
+      if (currentSection) {
+        observer.unobserve(currentSection);
+      }
+    };
+  }, []);
+
   return (
-    <section id="projects" className="pt-24 pb-8 px-4 relative">
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="pt-24 pb-8 px-4 relative"
+    >
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center flex items-center justify-center gap-3">
           {" "}
           Featured <span className="text-primary"> Projects </span>
+          <Sparkles
+            onClick={() => {
+              setIsSpinning(true);
+              setTimeout(() => setIsSpinning(false), 1000);
+            }}
+            className={cn(
+              "transition-all duration-500 ease-in-out cursor-pointer",
+              isVisible
+                ? "opacity-100 scale-100 text-primary animate-shine"
+                : "opacity-0 scale-0",
+              isSpinning && "animate-spin-multiple"
+            )}
+            size={28}
+          />
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">

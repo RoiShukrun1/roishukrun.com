@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -63,6 +63,38 @@ const categories = [
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("languages");
   const [showAll, setShowAll] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Check if section is at least 30% visible
+          if (entry.intersectionRatio >= 0.3) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% visible
+        rootMargin: "0px",
+      }
+    );
+
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
+    }
+
+    return () => {
+      if (currentSection) {
+        observer.unobserve(currentSection);
+      }
+    };
+  }, []);
 
   const filteredSkills = skills.filter(
     (skill) => skill.category === activeCategory
@@ -80,10 +112,26 @@ export const SkillsSection = () => {
   };
 
   return (
-    <section id="skills" className="pt-24 pb-8 px-4 relative bg-secondary/30">
+    <section
+      id="skills"
+      ref={sectionRef}
+      className="pt-24 pb-8 px-4 relative bg-secondary/30"
+    >
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary"> Skills</span>
+          My{" "}
+          <span className="text-primary">
+            {" "}
+            Skill
+            <span
+              className={cn("inline-block", isVisible && "animate-flip")}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              s
+            </span>
+          </span>
         </h2>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">

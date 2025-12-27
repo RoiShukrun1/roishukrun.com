@@ -1,7 +1,7 @@
 import { Linkedin, Mail, MapPin, Phone, Send, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 const MAX_MESSAGES_PER_EMAIL = 3;
@@ -75,12 +75,43 @@ const recordMessage = (email) => {
 export const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
   const [rateLimitInfo, setRateLimitInfo] = useState(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio >= 0.3) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: "0px",
+      }
+    );
+
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
+    }
+
+    return () => {
+      if (currentSection) {
+        observer.unobserve(currentSection);
+      }
+    };
+  }, []);
 
   // Check rate limit when email changes
   useEffect(() => {
@@ -177,10 +208,62 @@ export const ContactSection = () => {
     }
   };
   return (
-    <section id="contact" className="pt-24 pb-4 px-4 relative bg-secondary/30">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="pt-24 pb-4 px-4 relative bg-secondary/30 overflow-hidden"
+    >
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In <span className="text-primary"> Touch</span>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center relative">
+          <span className="inline-block">
+            {"Get In ".split("").map((char, index) => (
+              <span
+                key={index}
+                className={cn(
+                  "inline-block transition-all duration-500 ease-out",
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                )}
+                style={{
+                  transitionDelay: `${index * 50}ms`,
+                }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
+          </span>
+          <span className="text-primary inline-block">
+            {"Touch".split("").map((char, index) => (
+              <span
+                key={index}
+                className={cn(
+                  "inline-block transition-all duration-500 ease-out",
+                  isVisible
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 translate-y-8 scale-75"
+                )}
+                style={{
+                  transitionDelay: `${(index + 4) * 50}ms`,
+                }}
+              >
+                {char}
+              </span>
+            ))}
+            {/* Mail icon right next to Touch */}
+            <Mail
+              className={cn(
+                "inline-block ml-2 text-primary/40 transition-all duration-1000 ease-out align-middle",
+                isVisible
+                  ? "opacity-100 translate-y-0 animate-float"
+                  : "opacity-0 -translate-y-4"
+              )}
+              size={28}
+              style={{
+                transitionDelay: "600ms",
+              }}
+            />
+          </span>
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
