@@ -73,19 +73,18 @@ export const HeroSection = () => {
         <div className="space-y-6">
           {/* Circular Profile Photo */}
           <div className="flex justify-center mb-8">
-            <div
-              className="relative cursor-pointer"
-              onPointerDown={handlePhotoClick}
-              onClick={handlePhotoClick}
-            >
+            <div className="relative">
               <img
                 ref={photoRef}
                 src="/LinkedIn photo.jpeg"
                 alt="Profile Photo"
-                className="w-52 h-52 md:w-60 md:h-60 rounded-full object-cover border-4 border-primary/20 shadow-2xl opacity-0 animate-fade-in"
+                className="w-52 h-52 md:w-60 md:h-60 rounded-full object-cover border-4 border-primary/20 shadow-2xl opacity-0 animate-fade-in cursor-pointer relative z-20"
+                onPointerDown={handlePhotoClick}
+                onClick={handlePhotoClick}
+                style={{ pointerEvents: "auto" }}
               />
               {/* Overlay gradient (visual only; must not block pointer events) */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent pointer-events-none z-10" />
 
               {/* Burst particles: render in a larger overlay, masked so particles only show OUTSIDE the circular photo.
                   This makes them feel like they pop from behind the image and spread around it. */}
